@@ -14,7 +14,7 @@ const connection = mysql.createConnection({
   
     // Be sure to update with your own MySQL password!
     password: 'password',
-    database: 'employeetrack_db',
+    database: 'employee_db',
 });
 
 const rootMenu = [
@@ -171,11 +171,11 @@ const runMenu = async () => {
                     let { name } = department;
                     try {
                         runQuery(query, name);
-                        return console.log("Department successfully added.");
+                        return console.log("Departments added.");
                     } catch (error) {
                        console.log(error); 
                     }
-                    console.log("Department successfully added.");
+                    console.log("Departments added.");
                     break;
                 case "Add a role":
                     connection.query("SELECT * FROM departments", async (err, departments) => {
@@ -211,7 +211,7 @@ const runMenu = async () => {
                             let { title, salary } = role;
                             try {
                                 runQuery(query, [title, parseInt(salary), parseInt(idChoice)]);
-                                return console.log("Role successfully added.");
+                                return console.log("Roles added.");
                                 runMenu();
                             } catch (error) {
                                 console.log(error); 
@@ -220,7 +220,7 @@ const runMenu = async () => {
                             console.log(error);
                         }
                     })
-                    console.log("Role successfully added.");
+                    console.log("Roles added.");
                     break;
                 case "Add an employee":
                     connection.query("SELECT id, first_name, last_name FROM employees", (err, employees) => {
@@ -252,7 +252,7 @@ const runMenu = async () => {
                             ])
                             query = "INSERT INTO employees (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)"
                             runQuery(query, [employeeInfo.first_name, employeeInfo.last_name, employeeInfo.role_id.substring(0, 1), employeeInfo.manager_id.substring(0, 1)]);
-                            console.log("Employee successfully added.");
+                            console.log("Employees added.");
                         }) 
                     })
                     break;
@@ -285,7 +285,7 @@ const runMenu = async () => {
                             query = "UPDATE employees SET role_id = ? WHERE id = ?";
                             console.log(employeeChoice);
                             runQuery(query, [role.substring(0, 1), employeeChoice.substring(0, 1)]);
-                            console.log("Employee successfully updated.");
+                            console.log("Employees updated.");
                         })
                     })  
                     break;     
